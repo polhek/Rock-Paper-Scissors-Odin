@@ -1,109 +1,120 @@
+const game = () => {
+    // All  variables...
+    let playerScore = 0;
+    let computerScore = 0;
+    const rock = document.getElementById("rock");
+    const paper = document.getElementById("paper");
+    const scissors = document.getElementById("scissors");
+    const userScore = document.getElementById("user_score");
+    const computerScores = document.getElementById("computer_score");
+    
 
-// Function for computer hand, which will choose on random if computer chooses: "Rock", "Paper", "Scissors". 
+    
+    
+    
+    function computerPlay () {
+        // array of computer options
+        const computerOptions = ["rock", "paper", "scissors"];
+    
+        const computerNumberChoice = Math.floor(Math.random() * 3);
+        const computerChoice = computerOptions[computerNumberChoice];
+        return computerChoice;
+    };
 
 
-let playerScore = 0;
-let computerScore = 0;
-
-function computerPlay () {
-    // array of computer options
-    const computerOptions = ["rock", "paper", "scissors"];
-
-    const computerNumberChoice = Math.floor(Math.random() * 3);
-    const computerChoice = computerOptions[computerNumberChoice];
-    return computerChoice;
-};
-
-
-
-// Function that plays a single round of Rock, Paper, Scissors. 
-
-function singleRound(playerSelection, computerSelection) {
+    
+    function singleRound(playerSelection, computerSelection) {
     
    
 
-    // Tie
-    if (playerSelection === computerSelection) {
-        console.log("It is a tie.");
-        return;
-    } 
-
-    // Rock
-    if (playerSelection === "rock") {
-        if (computerSelection === "scissors") {
-            console.log("You won the round.");
-            playerScore++;
+        // Tie
+        if (playerSelection === computerSelection) {
+            console.log("It is a tie.");
             return;
-        } else {
-            console.log("You lost the round.");
-            computerScore++;
-            return;
-        }
-    }
-
-    // Paper
-    if (playerSelection === "paper") {
-        if (computerSelection === "scissors") {
-            console.log("You lost the round.");
-            computerScore++;
-            return;
-        } else {
-            console.log("You won the round.");
-            playerScore++;
-            return;
-        }
-    }
-
-    // Scissors
-    if (playerSelection === "scissors") {
-        if (computerSelection === "rock") {
-            console.log("You lost the round.");
-            computerScore++;
-            return;
-        } else {
-            console.log("You won the round.");
-            playerScore++;
-            return;
-        }
-    }
-    return computerScore, playerScore;
-    //console.log("Player has " + playerScore + "points, and computer has " + computerScore + "points.");
+        } 
     
-};
-
-
-
-
-// 5 round game - function, with loop that plays the game only 5 times...
-
-function game() {
-  for (let round = 1; round <= 5; round++) {
-    // Player selection, prompt...
-
-    playerSelection = prompt("Pick between rock, paper, scissors... And the game will begin! ").toLowerCase();
-    // Computer Selection
-    const computerSelection = computerPlay();
-
-    // Call the round function to start the game.
-    singleRound(playerSelection, computerSelection);
-    
-    console.log("Player has " + playerScore + "points, and computer has " + computerScore + "points.");
-    
-    if (round === 5) {
-        if (playerScore > computerScore) {
-            console.log("You have won.");
-        } else {
-            console.log("Computer has won.")
+        // Rock
+        if (playerSelection === "rock") {
+            if (computerSelection === "scissors") {
+                console.log("You won the round.");
+                playerScore++;
+                return;
+            } else {
+                console.log("You lost the round.");
+                computerScore++;
+                return;
+            }
         }
+    
+        // Paper
+        if (playerSelection === "paper") {
+            if (computerSelection === "scissors") {
+                console.log("You lost the round.");
+                computerScore++;
+                return;
+            } else {
+                console.log("You won the round.");
+                playerScore++;
+                return;
+            }
+        }
+    
+        // Scissors
+        if (playerSelection === "scissors") {
+            if (computerSelection === "rock") {
+                console.log("You lost the round.");
+                computerScore++;
+                return;
+            } else {
+                console.log("You won the round.");
+                playerScore++;
+                return;
+            }
+        }
+        return computerScore, playerScore;
+        //console.log("Player has " + playerScore + "points, and computer has " + computerScore + "points.");
+        
     };
 
-  }
-}
+    const playerChoice = () => {
+        // player choose rock
+        rock.addEventListener('click', function() {
+            //console.log("rock");
+            game('rock')
+        })
+        // player choose paper
+        paper.addEventListener('click', function() {
+            //console.log("paper");
+            game('paper');
+        })
 
+        // player choose scissors
+        scissors.addEventListener('click', function() {
+            //console.log('scissors');
+            game('scissors');
+        })
+
+    function game(playerSelection) {
+       
+        const computerSelection = computerPlay();
+        singleRound(playerSelection, computerSelection);
+        
+        userScore.textContent = playerScore;
+        computerScores.textContent = computerScore;
+
+        // Play the game to 5
+        
+    };
+    
+    
+
+        
+    };
+
+    playerChoice();
+    
+    
+};
+    
 game();
 
-
-/* const playerSelection = "scissors";
-const computerSelection = computerPlay();
-console.log(computerSelection);
-console.log(singleRound(playerSelection, computerSelection)); */
